@@ -1,0 +1,21 @@
+{
+    "name": "zikwall/m3u-content-parser",
+    "support": {
+        "issues": "https://github.com/zikwall/m3u-content-parser/issues?state=open",
+        "source": "https://github.com/zikwall/m3u-content-parser"
+    },
+    "authors": [
+        {
+            "name": "Andrey Kapitonov",
+            "email": "andrey.kapitonov.96@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "zikwall\\m3ucontentparser\\": "src/"
+        }
+    }
+}
