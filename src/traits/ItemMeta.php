@@ -4,44 +4,74 @@ namespace zikwall\m3ucontentparser\traits;
 
 trait ItemMeta
 {
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
 
-    public function getTvgName()
+    public function getTvgName() : string
     {
         return $this->tvgName;
     }
 
-    public function getTvgUrl()
+    public function getTvgUrl() : string
     {
         return $this->tvgUrl;
     }
 
-    public function getTvgLogo()
+    public function getTvgLogo() : string
     {
         return $this->tvgLogo;
     }
 
-    public function getGroupId()
+    public function getTvgShift() : int
+    {
+        return $this->tvgShift;
+    }
+
+    public function getGroupId() : int
     {
         return $this->groupId;
     }
 
-    public function getGroupTitle()
+    public function getGroupTitle() : string
     {
         return $this->groupTitle;
     }
 
-    public function getExtGrp()
+    public function getExtGrp() : string
     {
         return $this->extGrp;
     }
 
-    public function getCensored()
+    public function getCensored() : int
     {
         return $this->censored;
+    }
+
+    public function getLanguage() : string
+    {
+        return $this->tvgLanguage;
+    }
+
+    public function getCountry() : string
+    {
+        return $this->tvgCountry;
+    }
+
+    public function getAudioTrack() : string
+    {
+        return $this->audioTrack;
+    }
+
+    public function getAudioTrackNum() : int
+    {
+        return $this->audioTrackNum;
+    }
+
+    public function getExtraAttributes() : array
+    {
+        return $this->extraAttributes;
     }
 
     protected $availableMetaTags = [
@@ -50,11 +80,14 @@ trait ItemMeta
         'censored', 'tvg-country', 'tvg-language'
     ];
 
-    public function resolveMetaTags(array $attributtes = [])
+    /**
+     * @param array $attributes
+     * @return array
+     * @throws \Exception
+     */
+    protected function resolveMetaTags(array $attributes = [])
     {
-        $sanuitize = [];
-
-        foreach ($attributtes as $attrName => $attrValue) {
+        foreach ($attributes as $attrName => $attrValue) {
             if (in_array($attrName, $this->availableMetaTags)) {
                 $tagName = str_replace(' ', '', ucwords(str_replace('-', ' ', str_replace('_', ' ', $attrName))));
                 $tagName[0] = strtolower($tagName[0]);
@@ -67,9 +100,6 @@ trait ItemMeta
             }
         }
 
-        return $attributtes;
+        return $attributes;
     }
-
-    // add available attrubuttes
-    // remove attributtes
 }

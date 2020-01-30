@@ -10,13 +10,17 @@ class M3UContentParser
 
     private $m3uFileContent = '';
     private $dirtyItems = [];
-    private $m3uItems = [];
     private $tvgUrl = '';
     private $cache = 0;
     private $refresh = 0;
     private $countItems = 0;
     private $items = [];
 
+    /**
+     * M3UContentParser constructor.
+     * @param string $file
+     * @throws \Exception
+     */
     public function __construct(string $file)
     {
         $this->loadFile($file);
@@ -72,6 +76,16 @@ class M3UContentParser
     public function getTvgUrl()
     {
         return $this->tvgUrl;
+    }
+
+    public function getCache() : int
+    {
+        return $this->cache;
+    }
+
+    public function getRefresh() : int
+    {
+        return $this->refresh;
     }
 
     public function parseAndSetTvgUrl($url)

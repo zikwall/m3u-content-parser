@@ -10,8 +10,8 @@ class M3UItem
     use Attributes;
     use ItemMeta;
 
-    private $id = 0;
-    private $tvgId = 0;
+    private $id = '';
+    private $tvgId = '';
     private $tvgName = '';
     private $tvgUrl = '';
     private $tvgLogo = '';
@@ -24,7 +24,7 @@ class M3UItem
     private $groupId = 0;
     private $groupTitle = '';
     private $extGrp = '';
-    private $dirtyAttributtes = [];
+    private $extraAttributes = [];
 
     /**
      * M3UItem constructor.
@@ -39,7 +39,7 @@ class M3UItem
             $ex = explode(',', $this->tvgName);
             $this->tvgName = $ex[1];
 
-            $this->resolveMetaTags($this->parseAttributes($ex[0]));
+            $this->extraAttributes = $this->resolveMetaTags($this->parseAttributes($ex[0]));
         }
 
         if (count($count) > 2 && isset($count[2]) && !empty($count[2])) {
