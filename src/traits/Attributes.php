@@ -22,4 +22,14 @@ trait Attributes
 
         return $result;
     }
+    
+    public function makeAttrubutes($attributes = []) : string 
+    {
+        $attrString = '';
+        foreach ($attributes as $attribute => $value) {
+            $attrString .= sprintf('%s="%s" ', $attribute, $value);
+        }
+        
+        return rtrim($attrString);
+    }
 }

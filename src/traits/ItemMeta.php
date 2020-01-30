@@ -2,8 +2,28 @@
 
 namespace zikwall\m3ucontentparser\traits;
 
+use zikwall\m3ucontentparser\M3UItem;
+
 trait ItemMeta
 {
+    public function replaceTvgLogo($attrValue) : M3UItem
+    {
+        $this->tvgLogo = $attrValue;
+        return $this;
+    }
+
+    public function replaceTvgUrl($attrValue) : M3UItem
+    {
+        $this->tvgUrl = $attrValue;
+        return $this;
+    }
+
+    public function replaceTvgName($attrValue) : M3UItem
+    {
+        $this->tvgName = $attrValue;
+        return $this;
+    }
+
     public function getId() : string
     {
         return $this->id;

@@ -119,4 +119,25 @@ class M3UContentParser
 
         return array_slice($this->getItems(), $this->offset, $this->limit);
     }
+
+    public function rewriteM3UFile() : string
+    {
+        $meuFileContent = '#EXTM3U';
+
+        if (!empty($this->getTvgUrl())) {
+            $meuFileContent .= sprintf(' url-tvg="%s"', $this->getTvgUrl());
+        }
+
+        $meuFileContent .= PHP_EOL;
+
+        foreach ($this->getItems() as $item) {
+            /**
+             * @var $item M3UItem
+             */
+            $meuFileContent .= sprintf('#EXTINF:-1 %s,%s', $item->makeAttrubutes($item->getExtraAttributes()), $item->getTvgName()) . PHP_EOL;
+            $meuFileContent .= $item->getTvgUrl() . PHP_EOL;
+        }
+        
+        return $meuFileContent;
+    }
 }
