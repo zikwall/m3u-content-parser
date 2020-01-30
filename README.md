@@ -30,6 +30,31 @@ foreach ($parser->limit(20)->all() as $item) {
 
 ```
 
+### More example
+
+```php
+
+// rewrite current m3u content
+foreach ($parser->all() as $item) {
+    /**
+     * @var $item M3UItem
+     */
+     $item
+             ->replaceTvgName('UNNAMED ITEM')
+             ->replaceTvgLogo('NEW LOGO URL')
+             ->replaceTvgUrl('CHANE NEW URL');   
+}
+
+echo $parser->rewriteM3UFile();
+
+output example:
+#EXTM3U url-tvg="http://iptvx.one/epg/epg.xml.gz"
+#EXTINF:-1 group-title="Новости",UNNAMED ITEM
+CHANE NEW URL
+#EXTINF:-1 group-title="Новости",UNNAMED ITEM
+CHANE NEW URL
+```
+
 ### API
 
 1. The parser constructor accepts a link or file path:
@@ -51,6 +76,7 @@ $parser->parse();
 - [x] `offset(int)`
 - [x] `all()`
 - [x] `getItems()`
+- [x] `rewriteM3UFile()`
 
 ### Methods in m3u item object
 
