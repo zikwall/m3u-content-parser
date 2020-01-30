@@ -23,7 +23,9 @@ foreach ($parser->limit(20)->all() as $item) {
         $item->getTvgUrl(),     PHP_EOL,
         $item->getGroupTitle(), PHP_EOL,
         $item->getId(),         PHP_EOL;
-        $item->getGroupId();
+        $item->getGroupId(),    PHP_EOL,
+        $item->getLanguage(),   PHP_EOL,
+        $item->getCountry();
 }
 
 ```
@@ -31,12 +33,42 @@ foreach ($parser->limit(20)->all() as $item) {
 ### API
 
 1. The parser constructor accepts a link or file path:
-`$parser = new M3UContentParser('https://iptv-org.github.io/iptv/countries/ru.m3u');`
+```php
+$parser = new M3UContentParser('https://iptv-org.github.io/iptv/countries/ru.m3u');
+```
 
 2. Parsing is called by the same method:
-`$parser->parse();`
+```php
+$parser->parse();
+```
 
-3. TODO
+### Methods in m3u parser
+
+- [x] `getCahce()`
+- [x] `getResfresh()`
+- [x] `getTvgUrl()`
+- [x] `limit(int)`
+- [x] `offset(int)`
+- [x] `all()`
+- [x] `getItems()`
+
+### Methods in m3u item object
+
+- [x] `getId()`
+- [x] `getTvgId()`
+- [x] `getTvgName()`
+- [x] `getTvgUrl()`
+- [x] `getTvgLogo()`
+- [x] `getTvgShift()`
+- [x] `getGroupId()`
+- [x] `getGroupTitle()`
+- [x] `getExtGrp()`
+- [x] `getCensored()`
+- [x] `getLanguage()`
+- [x] `getCountry()`
+- [x] `getAudioTrack()`
+- [x] `getAudioTrackNum()`
+- [x] `getExtraAttributes()`
 
 ### Installation
 
