@@ -44,7 +44,7 @@ foreach ($parser->limit(20)->all() as $item) {
 
 ### Develop Mode
 
-``
+```json
 {
     "minimum-stability": "dev",
     "repositories": [
@@ -57,4 +57,8 @@ foreach ($parser->limit(20)->all() as $item) {
         "zikwall/m3u-content-parser: "dev-master"
     }
 }
-``
+```
+
+#### Questions?
+
+For all questions and suggestions - welcome to Issues
