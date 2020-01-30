@@ -76,7 +76,7 @@ $parser->parse();
 
 ### Develop Mode
 
-``
+```json
 {
     "minimum-stability": "dev",
     "repositories": [
@@ -89,4 +89,8 @@ $parser->parse();
         "zikwall/m3u-content-parser: "dev-master"
     }
 }
-``
+```
+
+#### Questions?
+
+For all questions and suggestions - welcome to Issues
