@@ -256,6 +256,10 @@ $parser->parse();
 - [x] `getTime()` return array of timecodes: hours, minutes, seconds and string format HH:MM:SS & original value
 - [x] `getDuration()` return float value duration of seconds
 - [x] `getIsEnding()` return bool value, indicates whether the stream has an ending or not 
+- [x] `getIsFragmentSource()`
+- [x] `getNewSource(string $sub_source)`
+- [x] `getHashHeaders()`
+- [x] `getDirtyItems()`
 
 ### Installation
 
