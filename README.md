@@ -189,7 +189,7 @@ $parser->parse();
         }
     ],
     "require": {
-        "zikwall/m3u-content-parser: "dev-master"
+        "zikwall/m3u-content-parser": "dev-master"
     }
 }
 ```
