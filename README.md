@@ -120,6 +120,76 @@ foreach ($parser->limit(10)->offset(10)->all() as $item) {
 
 ```
 
+### Seemed complicated? It is even easier!
+
+```php
+$segment = new SegmentM3U();
+$segment->attachSource('http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/variable.m3u8')->parse();
+
+if ($segment->getIsFragmentSource() === true) {
+    $segments = [];
+    foreach ($segment->getFragments() as $fragment) {
+        $subSegment = new SegmentM3U();
+        $subSegment->attachSource($segment->getNewSource($fragment->fragment))->parse();
+
+        echo $segment->getNewSource($fragment->fragment), PHP_EOL;
+
+        /**
+         * Get total duration
+         */
+        echo sprintf('Duration is: %0.2f seconds', $subSegment->getDuration()), PHP_EOL;
+
+        foreach ($subSegment->getSegments() as $sgmt) {
+            echo $subSegment->getNewSource($sgmt->segment), PHP_EOL;
+        }
+    }
+
+    /**
+     * Original: http://mhd.xxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/variable.m3u8
+     * Cleaning: http://mhd.xxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vl2w/
+     *
+     * Return stream links (FRAGMENTS):
+     *  - http://mhd.xxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vl2w/playlist.m3u8 // LOW
+     *  - http://mhd.xxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vm2w/playlist.m3u8 // MIDDLE
+     *  - http://mhd.xxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/playlist.m3u8 // HIGH
+     */
+
+    /**
+     * Each all fragments return SegmentM3UItem Object
+     * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/playlist.m3u8
+     *
+     * Array
+     *  (
+     *      [0] => zikwall\m3ucontentparser\SegmentM3UItem Object
+     *      (
+     *          [duration] => 6
+     *          [segment] => segment-1582439833-08914115.ts
+     *      )
+     *      [1] => zikwall\m3ucontentparser\SegmentM3UItem Object
+     *      (
+     *          [duration] => 6
+     *          [segment] => segment-1582439833-08914116.ts
+     *      )
+     *      ...
+     */
+
+    /**
+     * Convert to valid links, example:
+     *
+     * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/segment-1582439833-08914207.ts
+     * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/segment-1582439833-08914208.ts
+     * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/segment-1582439833-08914209.ts
+     * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/segment-1582439833-08914210.ts
+     * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/segment-1582439833-08914211.ts
+     * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/segment-1582439833-08914212.ts
+     * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/segment-1582439833-08914213.ts
+     * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/segment-1582439833-08914214.ts
+     * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/segment-1582439833-08914215.ts
+     */
+}
+
+```
+
 ### More examples Segment parser
 
 You can try different combinations of examples yourself
@@ -172,6 +242,8 @@ $parser->parse();
 - [x] `getTime()` return array of timecodes: hours, minutes, seconds and string format HH:MM:SS & original value
 - [x] `getDuration()` return float value duration of seconds
 - [x] `getIsEnding()` return bool value, indicates whether the stream has an ending or not 
+- [x] `getIsFragmentSource()`
+- [x] `getNewSource(string $sub_source)`
 
 ### Installation
 
