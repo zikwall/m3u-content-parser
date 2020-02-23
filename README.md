@@ -187,6 +187,20 @@ if ($segment->getIsFragmentSource() === true) {
      * http://mhd.xxxxxxx.tv/p/k5OqlMqeQONvANUJOq9GFQ,1582553567/streaming/ntvnn/324/vh1w/segment-1582439833-08914215.ts
      */
 }
+```
+
+### Even easier
+
+```php
+
+$segment = new SegmentM3U();
+$segment->attachSource('http://hls.kinoplayer.co/hls/PaSSagir.iz.SanFranCissko.2O17.HDRip/playlist.m3u8')->parse();
+
+foreach ($segment->getSegments() as $sgmt) {
+    echo $segment->getNewSource($sgmt->segment), PHP_EOL;
+}
+
+echo sprintf('Duration is: %0.2f seconds', $segment->getDuration()), PHP_EOL;
 
 ```
 
@@ -242,10 +256,6 @@ $parser->parse();
 - [x] `getTime()` return array of timecodes: hours, minutes, seconds and string format HH:MM:SS & original value
 - [x] `getDuration()` return float value duration of seconds
 - [x] `getIsEnding()` return bool value, indicates whether the stream has an ending or not 
-- [x] `getIsFragmentSource()`
-- [x] `getNewSource(string $sub_source)`
-- [x] `getHashHeaders()`
-- [x] `getDirtyItems()`
 
 ### Installation
 
