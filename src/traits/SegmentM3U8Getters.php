@@ -68,4 +68,9 @@ trait SegmentM3U8Getters
     {
         return $this->isFragmentSource;
     }
+
+    public function getHasHeaders() : array
+    {
+        return $this->hashHeaders;
+    }
 }

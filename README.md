@@ -244,6 +244,8 @@ $parser->parse();
 - [x] `getIsEnding()` return bool value, indicates whether the stream has an ending or not 
 - [x] `getIsFragmentSource()`
 - [x] `getNewSource(string $sub_source)`
+- [x] `getHashHeaders()`
+- [x] `getDirtyItems()`
 
 ### Installation
 
