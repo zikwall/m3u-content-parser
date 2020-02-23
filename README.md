@@ -55,6 +55,75 @@ CHANE NEW URL
 CHANE NEW URL
 ```
 
+### Segment Parser
+
+```php
+
+use zikwall\m3ucontentparser\SegmentM3U;
+$segmant = new SegmentM3U();
+$fragment->attachSource('examples/segments/index.m3u8')->parse();
+
+print_r($segment->getFragments());
+print_r($segment->getSegments());
+print_r($segment->getTime());
+var_dump($segment->getIsEnding());
+
+```
+
+### Complex sample
+
+```php
+
+use zikwall\m3ucontentparser\M3UContentParser;
+use zikwall\m3ucontentparser\SegmentM3U;
+use zikwall\m3ucontentparser\M3UItem;
+use zikwall\m3ucontentparser\FragmentM3UItem;
+
+$parser = new M3UContentParser('https://iptv-org.github.io/iptv/countries/ru.m3u');
+$parser->parse();
+
+foreach ($parser->limit(10)->offset(10)->all() as $item) {
+    /**
+     * @var $item M3UItem
+     */
+    $segment = new SegmentM3U();
+    $segment->attachSource($item->getTvgUrl())->parse();
+
+    if ($segment->getIsFragmentSource() === true) {
+        /**
+         * @var $fragment FragmentM3UItem
+         */
+        echo $segment->getCleanSource(), PHP_EOL;
+        foreach ($segment->getFragments() as $fragment) {
+            $subSegment = new SegmentM3U();
+            $subSegment->attachSource($segment->getNewSource($fragment->fragment))->parse();
+
+            echo $segment->getNewSource($fragment->fragment), PHP_EOL;
+        }
+
+        continue;
+    }
+
+    // ... conventional segment processing
+    foreach ($segment->getSegments() as $segmentItem) {
+        /**
+         * @var $segmentItem SegmentM3UItem
+         */
+        echo $segment->getNewSource($segmentItem->segment), PHP_EOL;
+//        display generated chunk links
+//        http://xxxxx/stream8/stream2020_2_23_13_44_7-65006.ts
+//        http://xxxxx/stream8/stream2020_2_23_13_44_18-65007.ts
+//        http://xxxxx/stream8/stream2020_2_23_13_44_28-65008.ts
+//        ...
+    }
+}
+
+```
+
+### More examples Segment parser
+
+You can try different combinations of examples yourself
+
 ### API
 
 1. The parser constructor accepts a link or file path:
@@ -95,6 +164,14 @@ $parser->parse();
 - [x] `getAudioTrack()`
 - [x] `getAudioTrackNum()`
 - [x] `getExtraAttributes()`
+
+### API Segment
+
+- [x] `getFragments()` return array of tracks with props
+- [x] `getSegments()` return array of segments in track
+- [x] `getTime()` return array of timecodes: hours, minutes, seconds and string format HH:MM:SS & original value
+- [x] `getDuration()` return float value duration of seconds
+- [x] `getIsEnding()` return bool value, indicates whether the stream has an ending or not 
 
 ### Installation
 

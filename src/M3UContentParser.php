@@ -48,7 +48,6 @@ class M3UContentParser
 
     /**
      * @param bool $resetDirtyItems
-     * @throws \Exception
      */
     public function parse(bool $resetDirtyItems = true) : void
     {
