@@ -67,6 +67,17 @@ class M3UContentParser
         }
     }
 
+    public function deleteAt(int $id)
+    {
+        unset($this->items[$id]);
+        $this->countItems -= 1;
+    }
+
+    public function getAt(int $id)
+    {
+        return $this->items[$id];
+    }
+
     public function getItems()
     {
         return $this->items;
@@ -107,6 +118,11 @@ class M3UContentParser
     }
 
     private function executeAll() {}
+
+    public function add(M3UItem $entry) {
+        $this->items[] = $entry;
+        $this->countItems++;
+    }
 
     public function all() : array
     {
